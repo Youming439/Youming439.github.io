@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>YOUMING</title>
+    <style>
+        .topimg {
+            background-color: rgba(255, 255, 255, 0.384);
+            backdrop-filter: blur(20px);
+            position: fixed;
+            top: 0;
+            left: 50%;
+            width: auto;
+            height: 6vh;
+            z-index: 1146;
+            transform: translateX(-50%);
+            padding: 2vh;
+            /* 修改内边距 */
+            border-radius: 1vh;
+            /* 添加圆角 */
+        }
+
+
+        /* 侧边栏菜单 */
+        .sidebar {
+            height: 100%;
+            /* 100% 全高 */
+            width: 0;
+            /* 0 宽度 - 使用 JavaScript 更改 */
+            position: fixed;
+            /* 原地不动 */
+            z-index: 1;
+            /* 保持在顶部 */
+            top: 0;
+            left: 0;
+            background-color: #111;
+            /* 黑色*/
+            overflow-x: hidden;
+            /* 禁用水平滚动 */
+            padding-top: 60px;
+            /* 将内容从顶部放置 60px */
+            transition: 0.5s;
+            /* 0.5 秒过渡效果在侧边栏中滑动 */
+        }
+
+        /* 侧边栏链接 */
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        /* 当您将鼠标悬停在导航链接上时，更改它们的颜色 */
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        /* 关闭按钮的位置和样式（右上角） */
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        /* 用于打开侧边栏的按钮 */
+        .openbtn {
+            font-size: 5vh;
+            /* 修改这一行 */
+            cursor: pointer;
+            background-color: #111;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: auto;
+            height: 8vh;
+            line-height: 6vh;
+            /* 保留这一行 */
+            border-bottom-right-radius: 20px;
+            z-index: 1145;
+        }
+
+
+        .openbtn:hover {
+            background-color: #444;
+        }
+
+        /* 样式页面内容 - 如果您想在打开侧导航时将页面内容推送到右侧，请使用此选项 */
+        #main {
+            transition: margin-left .5s;
+            /* 如果你想要一个过渡效果 */
+            padding: 20px;
+        }
+
+        /* 在高度小于 450 像素的小屏幕上，更改 sidenav 的样式（更少的填充和更小的字体大小）*/
+        @media screen and (max-height: 450px) {
+            .sidebar {
+                padding-top: 15px;
+            }
+
+            .sidebar a {
+                font-size: 18px;
+
+            }
+        }
+
+        .container {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: center;
+            align-content: flex-start;
+            transition: all 0.25s ease;
+        }
+
+        .cardimg {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            width: 300px;
+            aspect-ratio: 16 / 9;
+            z-index: 10;
+        }
+
+        .cardtextbg {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            top: -150px;
+            left: 130px;
+            width: 300px;
+            aspect-ratio: 16 / 9;
+            z-index: 8;
+            background-color: #111111;
+            backdrop-filter: blur(20px);
+            color: white;
+        }
+
+        .cardtextbgblur {
+            color: #ffffff;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(30px);
+            z-index: 9;
+        }
+
+        .cardtext{
+            position: relative;
+            color: #ffffff;
+            width: 130px;
+            height: 158px;
+            left: 170px;
+            top: 10px;
+        }
+
+        .cardtext>h1 {
+
+            font-size: 24px;
+        }
+
+        .cardtext>p {
+
+            font-size: 16px;
+        }
+
+        .card {
+            transition: all 0.25s ease;
+            width: 500px;
+            aspect-ratio: 16 / 9;
+            margin: 16px;
+            ;
+            /* padding margin取值 8px 16px 24px，font-size：12px 14px 16px，color：#333 #666 #999 就行了 */
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+    </div>
+    <button class="openbtn" onclick="openNav()">&#9776;</button>
+    <img class="topimg" src="./img/YOUMING.png">
+
+    <!-- <div id="main">
+
+    </div> -->
+
+    <div style="height: 10vh;"></div>
+
+    <div>
+        <div class="slideshow-container">
+            <img id="slideshow" src="./img/zs/1.jpg" alt="Slideshow" class="slideshow-image">
+        </div>
+
+        <style>
+            .slideshow-container {
+                width: 80%;
+                aspect-ratio: 16 / 9;
+                margin: auto;
+                overflow: hidden;
+                position: relative;
+                border: #111 solid 3px;
+                border-radius: 3vh;
+            }
+
+            .slideshow-image {
+                width: 100%;
+                aspect-ratio: 16 / 9;
+                transition: transform 1s ease, filter 1s ease;
+            }
+
+            .fade {
+                filter: blur(80px);
+                transform: scale(1.1);
+            }
+        </style>
+
+        <script>
+            let currentIndex = 1;
+            const totalImages = 10;
+            const slideshow = document.getElementById("slideshow");
+
+            setInterval(() => {
+                // 添加模糊效果
+                slideshow.classList.add("fade");
+
+                setTimeout(() => {
+                    // 更新图片索引
+                    currentIndex = (currentIndex % totalImages) + 1;
+                    slideshow.src = `./img/zs/${currentIndex}.jpg`;
+
+                    // 移除模糊效果
+                    slideshow.classList.remove("fade");
+                }, 1000);
+            }, 3000);
+        </script>
+    </div>
+
+    <div class="container">
+        <div class="card"> <img class="cardimg" src="./img/zs/1.jpg">
+            <div class="cardtextbg" style="background-image: url('./img/zs/1.jpg');">
+                <div class="cardtextbgblur">
+                    <div class="cardtext">
+                        <h1>主城</h1>
+                        <p>本服务器主城有环城轻轨，游览二号线，游览米哈游线，另有二线四向换乘</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card"> <img class="cardimg" src="./img/zs/2.jpg">
+            <div class="cardtextbg" style="background-image: url('./img/zs/2.jpg');">
+                <div class="cardtextbgblur">
+                    <div class="cardtext">
+                        <h1>新分城！自由创造！</h1>
+                        <p>我们建造了分城，让您自由创造，建造属于自己的建筑！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card"> <img class="cardimg" src="./img/zs/3.jpg">
+            <div class="cardtextbg" style="background-image: url('./img/zs/3.jpg');">
+                <div class="cardtextbgblur">
+                    <div class="cardtext">
+                        <h1>指令中心</h1>
+                        <p>服务器拥有快捷指令中心，包含了天气，时间，地点传送等快捷功能</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card"> <img class="cardimg" src="./img/zs/4.jpg">
+            <div class="cardtextbg" style="background-image: url('./img/zs/4.jpg');">
+                <div class="cardtextbgblur">
+                    <div class="cardtext">
+                        <h1>主城东站！</h1>
+                        <p>新建主城东站，主城-新分城，让您快速乘车</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card"> <img class="cardimg" src="./img/zs/5.jpg">
+            <div class="cardtextbg" style="background-image: url('./img/zs/5.jpg');">
+                <div class="cardtextbgblur">
+                    <div class="cardtext">
+                        <h1>分城！</h1>
+                        <p>新分城车站，让您退回主城更方便</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card"> <img class="cardimg" src="./img/zs/6.jpg">
+            <div class="cardtextbg" style="background-image: url('./img/zs/6.jpg');">
+                <div class="cardtextbgblur">
+                    <div class="cardtext">
+                        <h1>快速城际</h1>
+                        <p>如果您赶时间的话，可以乘坐我们的快速城际，晕3D者慎坐</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card"> <img class="cardimg" src="./img/zs/7.jpg">
+            <div class="cardtextbg" style="background-image: url('./img/zs/7.jpg');">
+                <div class="cardtextbgblur">
+                    <div class="cardtext">
+                        <h1>自助售票</h1>
+                        <p>我们拥有3台自助售票机，让您无需等待，快速拿票</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card"> <img class="cardimg" src="./img/zs/8.jpg">
+            <div class="cardtextbg" style="background-image: url('./img/zs/8.jpg');">
+                <div class="cardtextbgblur">
+                    <div class="cardtext">
+                        <h1>人工服务</h1>
+                        <p>分城站有人工咨询台以及失物招领处，人工咨询台可购买快速城际票以及本站车票</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card"> <img class="cardimg" src="./img/zs/9.jpg">
+            <div class="cardtextbg" style="background-image: url('./img/zs/9.jpg');">
+                <div class="cardtextbgblur">
+                    <div class="cardtext">
+                        <h1>候车</h1>
+                        <p>超大候车室，另有电子屏幕播报以及语音叫号，让您避免错过火车</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card"> <img class="cardimg" src="./img/zs/10.jpg">
+            <div class="cardtextbg" style="background-image: url('./img/zs/10.jpg');">
+                <div class="cardtextbgblur">
+                    <div class="cardtext">
+                        <h1>分城车站</h1>
+                        <p>超大车站，自助出站，让您的同行更方便</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card"> <img class="cardimg" src="./img/zs/dzt.jpg">
+            <div class="cardtextbg" style="background-image: url('./img/zs/dzt.jpg');">
+                <div class="cardtextbgblur">
+                    <div class="cardtext">
+                        <h1>掉渣田</h1>
+                        <p>本服务器轨道交通由 掉渣田 AR麦铁 承包建造</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <script>
+        /* 设置侧边栏的宽度为250px，页面内容的左边距为250px */
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        /* 设置侧边栏宽度为0，页面内容左边距为0 */
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+    </script>
+</body>
+
+</html>
